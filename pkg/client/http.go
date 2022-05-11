@@ -132,7 +132,10 @@ func GetArticle(client *http.Client, link *gReddit.Link) (*string, error) {
 		if video == nil {
 			return nil, videoMissingErr
 		}
-		str := fmt.Sprintf("<iframe src=\"%s\" width=\"%d\" height=\"%d\"/> <img src=\"%s\" class=\"webfeedsFeaturedVisual\"/>", video.FallbackURL, video.Width, video.Height, link.Thumbnail)
+		str := fmt.Sprintf("<iframe src=\"%s\" width=\"%d\" height=\"%d\"/>", video.FallbackURL, video.Width, video.Height)
+		if link.Thumbnail != "default" {
+			str += fmt.Sprintf(" <img src=\"%s\" class=\"webfeedsFeaturedVisual\"/>", link.Thumbnail)
+		}
 		return &str, nil
 	}
 
