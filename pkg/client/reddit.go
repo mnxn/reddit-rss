@@ -157,7 +157,7 @@ func linkToFeed(client *http.Client, getArticle GetArticleFn, link *reddit.Link)
 	if c != nil {
 		b.WriteString(*c)
 	}
-	if itemLink != commentLink {
+	if link.BodyHTML == "" && itemLink != commentLink {
 		b.WriteString(fmt.Sprintf(`<span><a href="%s">[link]</a></span>   `, itemLink))
 	}
 	b.WriteString(fmt.Sprintf(`<span><a href="%s">[comments]</a></span>`, commentLink))
