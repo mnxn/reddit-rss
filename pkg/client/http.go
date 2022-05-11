@@ -82,6 +82,12 @@ func GetArticle(client *http.Client, link *gReddit.Link) (*string, error) {
 		return &str, nil
 	}
 
+	// BodyHTML is set if the item is a comment
+	if link.BodyHTML != "" {
+		str := html.UnescapeString(link.BodyHTML)
+		return &str, nil
+	}
+
 	if len(link.MediaMetadata) > 0 {
 		var b strings.Builder
 		b.WriteString("<div>")

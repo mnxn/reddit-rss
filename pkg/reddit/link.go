@@ -18,6 +18,7 @@ type Link struct {
 	AuthorFlairCSSClass string        `json:"author_flair_css_class"`
 	AuthorFlairText     string        `json:"author_flair_text"`
 	BannedBy            string        `json:"banned_by"`
+	BodyHTML            string        `json:"body_html"`
 	Clicked             bool          `json:"clicked"`
 	ContestMode         bool          `json:"contest_mode"`
 	Created             float64       `json:"created"`
