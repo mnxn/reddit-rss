@@ -4,5 +4,8 @@
     "api/index.go": {
       "memory": 256
     }
+  },
+  "github": {
+    "silent": true
   }
 }
