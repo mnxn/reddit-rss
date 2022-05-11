@@ -141,29 +141,35 @@ func RssHandler(redditURL string, now NowFn, client *http.Client, getArticle Get
 }
 
 func linkToFeed(client *http.Client, getArticle GetArticleFn, link *reddit.Link) *feeds.Item {
-	var content string
-	c, _ := getArticle(client, link)
-	if c != nil {
-		content = *c
-	}
 	redditUrl := os.Getenv("REDDIT_URL")
 	if redditUrl == "" {
 		redditUrl = "https://old.reddit.com"
 	}
-	content = fmt.Sprintf(`%s<p><a href="%s%s">[comments]</a></p>`, content, redditUrl, link.Permalink)
-	t := time.Unix(int64(link.CreatedUtc), 0)
 	// if item link is to reddit, replace reddit with REDDIT_URL
 	itemLink := link.URL
 	if strings.HasPrefix(itemLink, "https://old.reddit.com") {
-		itemLink = fmt.Sprintf(`%s%s`, redditUrl, link.Permalink)
+		itemLink = strings.Replace(itemLink, "https://old.reddit.com", redditUrl, 1)
 	}
+	commentLink := redditUrl + link.Permalink
+
+	var b strings.Builder
+	c, _ := getArticle(client, link)
+	if c != nil {
+		b.WriteString(*c)
+		b.WriteString("<br>")
+	}
+	if itemLink != commentLink {
+		b.WriteString(fmt.Sprintf(`<span><a href="%s">[link]</a></span>`, itemLink))
+	}
+	b.WriteString(fmt.Sprintf(`<span><a href="%s">[comments]</a></span>`, commentLink))
+
 	return &feeds.Item{
 		Title:   link.Title,
 		Link:    &feeds.Link{Href: itemLink},
 		Author:  &feeds.Author{Name: link.Author},
-		Created: t,
+		Created: time.Unix(int64(link.CreatedUtc), 0),
 		Id:      link.ID,
-		Content: content,
+		Content: b.String(),
 	}
 }
 
