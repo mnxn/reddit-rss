@@ -2,9 +2,10 @@ package reddit
 
 import (
 	"fmt"
+	"testing"
+
 	"github.com/jarcoal/httpmock"
 	"github.com/stretchr/testify/assert"
-	"testing"
 )
 
 func TestDeleteLink(t *testing.T) {

@@ -35,8 +35,10 @@ type linkListing struct {
 	Data linkListingData `json:"data"`
 }
 
-type GetArticleFn = func(client *http.Client, link *reddit.Link) (*string, error)
-type NowFn = func() time.Time
+type (
+	GetArticleFn = func(client *http.Client, link *reddit.Link) (*string, error)
+	NowFn        = func() time.Time
+)
 
 func RssHandler(redditURL string, now NowFn, client *http.Client, getArticle GetArticleFn, w http.ResponseWriter, r *http.Request) {
 	ctx := r.Context()

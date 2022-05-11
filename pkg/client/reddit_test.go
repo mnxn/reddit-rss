@@ -141,7 +141,7 @@ func Test_RssHandler(t *testing.T) {
 			require.NoError(t, err)
 
 			if os.Getenv("UPDATE_GOLDEN_FILES") == "true" {
-				err := ioutil.WriteFile(tt.response, body, 0666)
+				err := ioutil.WriteFile(tt.response, body, 0o666)
 				require.NoError(t, err)
 			}
 

@@ -1,8 +1,9 @@
 package reddit
 
 import (
-	"github.com/jarcoal/httpmock"
 	"io/ioutil"
+
+	"github.com/jarcoal/httpmock"
 )
 
 func mockResponseFromFile(url string, filepath string) {

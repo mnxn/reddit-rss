@@ -22,7 +22,6 @@ func main() {
 	err := sentry.Init(sentry.ClientOptions{
 		Dsn: os.Getenv("SENTRY_DSN"),
 	})
-
 	if err != nil {
 		panic(err)
 	}

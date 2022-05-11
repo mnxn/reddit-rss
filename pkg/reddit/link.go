@@ -140,7 +140,6 @@ func (c *Client) HideLink(linkID string) error {
 	data.Set("id", fmt.Sprintf("%s_%s", linkType, linkID))
 	url := fmt.Sprintf("%s/api/hide", baseAuthURL)
 	req, err := http.NewRequest("POST", url, bytes.NewBufferString(data.Encode()))
-
 	if err != nil {
 		return err
 	}

@@ -33,7 +33,6 @@ func (c *Client) commentOnThing(fullname string, text string) error {
 	data.Set("api_type", "json")
 	url := fmt.Sprintf("%s/api/comment", baseAuthURL)
 	req, err := http.NewRequest("POST", url, bytes.NewBufferString(data.Encode()))
-
 	if err != nil {
 		return err
 	}
@@ -58,7 +57,6 @@ func (c *Client) deleteThing(fullname string) error {
 	data.Set("id", fullname)
 	url := fmt.Sprintf("%s/api/del", baseAuthURL)
 	req, err := http.NewRequest("POST", url, bytes.NewBufferString(data.Encode()))
-
 	if err != nil {
 		return err
 	}
@@ -85,7 +83,6 @@ func (c *Client) editThingText(fullname string, text string) error {
 	data.Set("api_type", "json")
 	url := fmt.Sprintf("%s/api/editusertext", baseAuthURL)
 	req, err := http.NewRequest("POST", url, bytes.NewBufferString(data.Encode()))
-
 	if err != nil {
 		return err
 	}
