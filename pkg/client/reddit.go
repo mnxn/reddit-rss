@@ -7,7 +7,6 @@ import (
 	"io"
 	"log"
 	"net/http"
-	"net/url"
 	"os"
 	"strconv"
 	"strings"
@@ -152,11 +151,6 @@ func linkToFeed(client *http.Client, getArticle GetArticleFn, link *reddit.Link)
 		redditUrl = "https://old.reddit.com"
 	}
 	content = fmt.Sprintf(`<p><a href="%s%s">comments</a></p> %s`, redditUrl, link.Permalink, content)
-	author := link.Author
-	u, err := url.Parse(link.URL)
-	if err == nil {
-		author = u.Host
-	}
 	t := time.Unix(int64(link.CreatedUtc), 0)
 	// if item link is to reddit, replace reddit with REDDIT_URL
 	itemLink := link.URL
@@ -166,7 +160,7 @@ func linkToFeed(client *http.Client, getArticle GetArticleFn, link *reddit.Link)
 	return &feeds.Item{
 		Title:   link.Title,
 		Link:    &feeds.Link{Href: itemLink},
-		Author:  &feeds.Author{Name: author},
+		Author:  &feeds.Author{Name: link.Author},
 		Created: t,
 		Id:      link.ID,
 		Content: content,
