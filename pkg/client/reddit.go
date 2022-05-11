@@ -150,7 +150,7 @@ func linkToFeed(client *http.Client, getArticle GetArticleFn, link *reddit.Link)
 	if redditUrl == "" {
 		redditUrl = "https://old.reddit.com"
 	}
-	content = fmt.Sprintf(`<p><a href="%s%s">comments</a></p> %s`, redditUrl, link.Permalink, content)
+	content = fmt.Sprintf(`%s<p><a href="%s%s">comments</a></p>`, content, redditUrl, link.Permalink)
 	t := time.Unix(int64(link.CreatedUtc), 0)
 	// if item link is to reddit, replace reddit with REDDIT_URL
 	itemLink := link.URL
